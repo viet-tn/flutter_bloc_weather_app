@@ -34,6 +34,8 @@ dependencies:
   # Remote API
   internet_connection_checker: ^0.0.1+4
   http: ^0.13.4
+  # Local API
+  shared_preferences: ^2.0.15
   # Country code converter
   country_codes: ^2.2.0
   # Icons

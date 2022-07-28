@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import '../../../../core/error/exceptions.dart';
-import '../models/geocoding_location_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../../core/error/exceptions.dart';
 import '../../../../core/secrets/secret.dart';
+import '../models/geocoding_location_model.dart';
 
 const baseUrl = 'api.openweathermap.org';
 
