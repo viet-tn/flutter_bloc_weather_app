@@ -3,9 +3,9 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc_weather_app/core/usecases/usecases.dart';
-import 'package:flutter_bloc_weather_app/features/settings/domain/usecases/get_settings.dart';
-import 'package:flutter_bloc_weather_app/features/settings/domain/usecases/save_settings.dart';
+import '../../../../core/usecases/usecases.dart';
+import '../../domain/usecases/get_settings.dart';
+import '../../domain/usecases/save_settings.dart';
 import '../../domain/entities/settings.dart';
 
 part 'settings_event.dart';

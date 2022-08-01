@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:ffi';
-
 import '../../domain/entities/entities.dart';
 
 class ThreeHrsWeatherModel extends ThreeHrsWeather {

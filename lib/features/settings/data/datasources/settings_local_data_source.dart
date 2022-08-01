@@ -1,10 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:flutter_bloc_weather_app/core/error/exceptions.dart';
+import '../../../../core/error/exceptions.dart';
+import '../models/settings_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:flutter_bloc_weather_app/features/settings/data/models/settings_model.dart';
 
 const cachedSettings = 'CACHED_SETTINGS';
 

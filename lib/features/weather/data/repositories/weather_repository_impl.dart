@@ -1,11 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dartz/dartz.dart';
-import 'package:flutter_bloc_weather_app/core/error/failures.dart';
-import 'package:flutter_bloc_weather_app/core/network/network_info.dart';
-import 'package:flutter_bloc_weather_app/features/weather/data/datasources/weather_remote_data_source.dart';
-import 'package:flutter_bloc_weather_app/features/weather/domain/entities/three_hrs_weather.dart';
-import 'package:flutter_bloc_weather_app/features/weather/domain/entities/weather.dart';
-import 'package:flutter_bloc_weather_app/features/weather/domain/repositories/weather_repository.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/network/network_info.dart';
+import '../datasources/weather_remote_data_source.dart';
+import '../../domain/entities/three_hrs_weather.dart';
+import '../../domain/entities/weather.dart';
+import '../../domain/repositories/weather_repository.dart';
 
 import '../../../../core/error/exceptions.dart';
 

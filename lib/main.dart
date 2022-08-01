@@ -1,9 +1,9 @@
 import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_weather_app/features/settings/domain/entities/settings.dart';
-import 'package:flutter_bloc_weather_app/features/settings/presentation/pages/settings_page.dart';
-import 'package:flutter_bloc_weather_app/features/weather/presentation/pages/weather_page.dart';
+import 'features/settings/domain/entities/settings.dart';
+import 'features/settings/presentation/pages/settings_page.dart';
+import 'features/weather/presentation/pages/weather_page.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
 
 import 'features/search/injection_container.dart' as search_di;

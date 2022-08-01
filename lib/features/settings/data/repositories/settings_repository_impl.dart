@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 
-import 'package:flutter_bloc_weather_app/core/error/exceptions.dart';
-import 'package:flutter_bloc_weather_app/core/error/failures.dart';
-import 'package:flutter_bloc_weather_app/features/settings/data/datasources/settings_local_data_source.dart';
-import 'package:flutter_bloc_weather_app/features/settings/data/models/settings_model.dart';
-import 'package:flutter_bloc_weather_app/features/settings/domain/entities/settings.dart';
-import 'package:flutter_bloc_weather_app/features/settings/domain/repositories/settings_repository.dart';
+import '../../../../core/error/exceptions.dart';
+import '../../../../core/error/failures.dart';
+import '../datasources/settings_local_data_source.dart';
+import '../models/settings_model.dart';
+import '../../domain/entities/settings.dart';
+import '../../domain/repositories/settings_repository.dart';
 
 class SettingsRepositoryImpl implements SettingsRepository {
   final SettingsLocalDataSource localDataSource;
@@ -32,7 +32,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
         SettingsModel(theme: settings.theme, metric: settings.metric);
     try {
       localDataSource.cacheSettings(settingsModel);
-      return Right(() {});
+      return const Right(null);
     } catch (e) {
       log(e.runtimeType.toString());
       return Left(CacheFailure());

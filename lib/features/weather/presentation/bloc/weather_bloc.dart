@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc_weather_app/features/weather/domain/entities/entities.dart';
-import 'package:flutter_bloc_weather_app/features/weather/domain/usecases/get_5_days_3_hrs_weather.dart';
-import 'package:flutter_bloc_weather_app/features/weather/domain/usecases/get_current_weather.dart';
-import 'package:flutter_bloc_weather_app/features/weather/domain/usecases/params.dart';
+import '../../domain/entities/entities.dart';
+import '../../domain/usecases/get_5_days_3_hrs_weather.dart';
+import '../../domain/usecases/get_current_weather.dart';
+import '../../domain/usecases/params.dart';
 
 part 'weather_event.dart';
 part 'weather_state.dart';
