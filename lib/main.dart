@@ -3,17 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_weather_app/features/settings/domain/entities/settings.dart';
 import 'package:flutter_bloc_weather_app/features/settings/presentation/pages/settings_page.dart';
+import 'package:flutter_bloc_weather_app/features/weather/presentation/pages/weather_page.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
 
 import 'features/search/injection_container.dart' as search_di;
 import 'features/settings/injection_container.dart' as settings_di;
+import 'features/weather/injection_container.dart' as weather_di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await CountryCodes.init();
-  await search_di.init();
+  // await search_di.init();
   await settings_di.init();
+  await weather_di.init();
 
   runApp(const MyApp());
 }
@@ -40,7 +43,7 @@ class _MyAppState extends State<MyApp> {
                   ? Brightness.dark
                   : Brightness.light,
             ),
-            home: const SettingsPage(),
+            home: const WeatherPage(),
           );
         },
       ),
