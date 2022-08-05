@@ -4,10 +4,10 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../datasources/settings_local_data_source.dart';
-import '../models/settings_model.dart';
 import '../../domain/entities/settings.dart';
 import '../../domain/repositories/settings_repository.dart';
+import '../datasources/settings_local_data_source.dart';
+import '../models/settings_model.dart';
 
 class SettingsRepositoryImpl implements SettingsRepository {
   final SettingsLocalDataSource localDataSource;

@@ -3,10 +3,11 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
 import '../../../../core/usecases/usecases.dart';
+import '../../domain/entities/settings.dart';
 import '../../domain/usecases/get_settings.dart';
 import '../../domain/usecases/save_settings.dart';
-import '../../domain/entities/settings.dart';
 
 part 'settings_event.dart';
 part 'settings_state.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../domain/entities/entities.dart';
 
+import '../../domain/entities/entities.dart';
 import 'widgets.dart';
 
 class HourlyForcast extends StatelessWidget {

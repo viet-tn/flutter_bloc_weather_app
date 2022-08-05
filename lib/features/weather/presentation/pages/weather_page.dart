@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_weather_app/core/helpers/string_time_from_epoch.dart';
+import '../../../../core/helpers/string_time_from_epoch.dart';
 import '../widgets/hourly_forcast.dart';
 import '../widgets/main_section.dart';
 

@@ -4,14 +4,13 @@ import 'domain/repositories/settings_repository.dart';
 import 'domain/usecases/get_settings.dart';
 import 'domain/usecases/save_settings.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'presentation/bloc/settings_bloc.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  //! Features - Number Trivia
+  //! Features
   // Bloc
   sl.registerLazySingleton(() => SettingsBloc(sl(), sl()));
 
@@ -28,10 +27,4 @@ Future<void> init() async {
   sl.registerLazySingleton<SettingsLocalDataSource>(
     () => SettingsLocalDataSourceImp(sharedPreferences: sl()),
   );
-
-  //! Core
-
-  //! External
-  final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 }

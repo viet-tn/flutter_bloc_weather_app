@@ -2,19 +2,16 @@ import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'core/presentation/router/app_router.dart';
+import 'features/injection_container.dart' as di;
 import 'features/settings/domain/entities/settings.dart';
-import 'features/settings/injection_container.dart' as settings_di;
 import 'features/settings/presentation/bloc/settings_bloc.dart';
-import 'features/weather/injection_container.dart' as weather_di;
-import 'features/weather/presentation/pages/weather_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await CountryCodes.init();
-  // await search_di.init();
-  await settings_di.init();
-  await weather_di.init();
+  await di.init();
 
   runApp(const MyApp());
 }
@@ -27,11 +24,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var abc = settings_di.sl<SettingsBloc>().add(const LoadSettingEvent());
+  final _ = di.sl<SettingsBloc>().add(const LoadSettingEvent());
+  final AppRouter _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => settings_di.sl<SettingsBloc>(),
+      create: (context) => di.sl<SettingsBloc>(),
       child: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
           return MaterialApp(
@@ -42,10 +41,16 @@ class _MyAppState extends State<MyApp> {
                   ? Brightness.dark
                   : Brightness.light,
             ),
-            home: const WeatherPage(),
+            onGenerateRoute: _appRouter.onGenerateRoute,
           );
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _appRouter.dispose();
+    super.dispose();
   }
 }
