@@ -41,6 +41,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
           ),
           (forcastListValue) => emit(
             Loaded(
+                location: event.location,
                 currentWeather: currentWeatherValue,
                 forcastList: forcastListValue),
           ),

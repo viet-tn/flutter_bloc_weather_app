@@ -23,10 +23,12 @@ class Error extends WeatherState {
 class Loading extends WeatherState {}
 
 class Loaded extends WeatherState {
+  final String location;
   final Weather currentWeather;
   final List<ThreeHrsWeather> forcastList;
 
   const Loaded({
+    required this.location,
     required this.currentWeather,
     required this.forcastList,
   });

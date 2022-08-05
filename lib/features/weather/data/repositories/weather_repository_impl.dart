@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
+
+import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/network/network_info.dart';
-import '../datasources/weather_remote_data_source.dart';
 import '../../domain/entities/three_hrs_weather.dart';
 import '../../domain/entities/weather.dart';
 import '../../domain/repositories/weather_repository.dart';
-
-import '../../../../core/error/exceptions.dart';
+import '../datasources/weather_remote_data_source.dart';
 
 class WeatherRepositoryImpl implements WeatherRepository {
   final NetworkInfo _networkInfo;

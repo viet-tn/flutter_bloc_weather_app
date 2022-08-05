@@ -1,14 +1,12 @@
 import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/settings/domain/entities/settings.dart';
-import 'features/settings/presentation/pages/settings_page.dart';
-import 'features/weather/presentation/pages/weather_page.dart';
-import 'features/settings/presentation/bloc/settings_bloc.dart';
 
-import 'features/search/injection_container.dart' as search_di;
+import 'features/settings/domain/entities/settings.dart';
 import 'features/settings/injection_container.dart' as settings_di;
+import 'features/settings/presentation/bloc/settings_bloc.dart';
 import 'features/weather/injection_container.dart' as weather_di;
+import 'features/weather/presentation/pages/weather_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +35,7 @@ class _MyAppState extends State<MyApp> {
       child: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Location',
             theme: ThemeData(
               brightness: state.settings.theme == WeatherAppTheme.dark

@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../../core/error/exceptions.dart';
 import '../models/settings_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 const cachedSettings = 'CACHED_SETTINGS';
 

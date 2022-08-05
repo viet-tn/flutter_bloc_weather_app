@@ -10,10 +10,12 @@ abstract class WeatherEvent extends Equatable {
 class FetchDataEvent extends WeatherEvent {
   final double lat;
   final double lon;
+  final String location;
 
   const FetchDataEvent({
     required this.lat,
     required this.lon,
+    required this.location,
   });
 
   @override

@@ -56,7 +56,7 @@ class ThreeHrsWeatherModel extends ThreeHrsWeather {
       humidity: map['humidity'] as int,
       pressure: map['pressure'] as int,
       visibility: map['visibility'] as int,
-      windSpeed: map['windSpeed'] as double,
+      windSpeed: map['windSpeed'].toDouble(),
       windDegree: map['windDegree'] as int,
       clouds: map['clouds'] as int,
       sunrise: map['sunrise'] as int,

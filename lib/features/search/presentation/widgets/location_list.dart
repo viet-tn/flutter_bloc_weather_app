@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'widgets.dart';
 
 import '../bloc/search_bloc.dart';
+import 'widgets.dart';
 
 class LocationList extends StatelessWidget {
   const LocationList({Key? key}) : super(key: key);
