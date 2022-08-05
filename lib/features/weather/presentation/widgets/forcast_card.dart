@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/helpers/string_time_from_epoch.dart';
 import '../../domain/entities/three_hrs_weather.dart';
-
 import 'widgets.dart';
 
 class ForcastCard extends StatelessWidget {

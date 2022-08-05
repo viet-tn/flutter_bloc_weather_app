@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/search_bloc.dart';
 
 import '../../injection_container.dart';
+import '../bloc/search_bloc.dart';
 import '../widgets/widgets.dart';
 
 class LocationSearchPage extends StatelessWidget {
   const LocationSearchPage({Key? key}) : super(key: key);
+
+  static const routeName = '/search';
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../weather/presentation/bloc/weather_bloc.dart';
+import '../../../weather/presentation/pages/weather_page.dart';
 
+import '../../injection_container.dart';
 import '../bloc/search_bloc.dart';
 import 'widgets.dart';
 
@@ -39,10 +44,17 @@ class LocationList extends StatelessWidget {
             ),
             itemCount: state.locations.length,
             itemBuilder: (context, index) => LocationTile(
-              location: state.locations[index],
-              // TODO: Handle tap event
-              onTap: () {},
-            ),
+                location: state.locations[index],
+                onTap: () => Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      WeatherPage.routeName,
+                      (_) => false,
+                      arguments: WeatherPageArguments(
+                        location: state.locations[index].name,
+                        lat: state.locations[index].lat,
+                        lon: state.locations[index].lon,
+                      ),
+                    )),
           );
         } else {
           return const Center(

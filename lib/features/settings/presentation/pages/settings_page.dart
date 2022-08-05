@@ -7,6 +7,8 @@ import '../bloc/settings_bloc.dart';
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
+  static const routeName = '/settings';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

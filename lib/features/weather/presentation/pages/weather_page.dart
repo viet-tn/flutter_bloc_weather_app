@@ -1,30 +1,56 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/helpers/string_time_from_epoch.dart';
-import '../widgets/hourly_forcast.dart';
-import '../widgets/main_section.dart';
 
+import '../../../search/presentation/pages/location_search_page.dart';
+import '../../../settings/presentation/pages/settings_page.dart';
 import '../../injection_container.dart';
 import '../bloc/weather_bloc.dart';
+import '../widgets/main_section.dart';
 import '../widgets/widgets.dart';
 
+class WeatherPageArguments {
+  final String location;
+  final double lat;
+  final double lon;
+
+  const WeatherPageArguments({
+    required this.location,
+    required this.lat,
+    required this.lon,
+  });
+}
+
 class WeatherPage extends StatelessWidget {
-  const WeatherPage({Key? key}) : super(key: key);
+  const WeatherPage({
+    Key? key,
+    required this.arguments,
+  }) : super(key: key);
+
+  static const routeName = '/';
+
+  final WeatherPageArguments arguments;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<WeatherBloc>(),
-      child: WeatherView(),
+      child: WeatherView(
+        arguments: arguments,
+      ),
     );
   }
 }
 
 class WeatherView extends StatelessWidget {
-  const WeatherView({Key? key}) : super(key: key);
+  const WeatherView({
+    Key? key,
+    required this.arguments,
+  }) : super(key: key);
+
+  final WeatherPageArguments arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +81,18 @@ class WeatherView extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            const Icon(
-              Icons.search,
-              color: Colors.black,
+            IconButton(
+              onPressed: () =>
+                  Navigator.pushNamed(context, LocationSearchPage.routeName),
+              icon: const Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
             ),
-            const IconButton(
-              onPressed: null,
-              icon: Icon(
+            IconButton(
+              onPressed: () =>
+                  Navigator.pushNamed(context, SettingsPage.routeName),
+              icon: const Icon(
                 Icons.more_vert,
                 color: Colors.black,
               ),
@@ -79,20 +110,18 @@ class WeatherView extends StatelessWidget {
         child: BlocBuilder<WeatherBloc, WeatherState>(
           builder: (context, state) {
             if (state is WeatherInitial) {
-              return ElevatedButton(
-                  onPressed: () => context.read<WeatherBloc>().add(
-                        FetchDataEvent(
-                          lat: 10.7546664,
-                          lon: 106.4150315,
-                          location: 'Ho Chi Minh City',
-                        ),
-                      ),
-                  child: Text('send event'));
+              context.read<WeatherBloc>().add(
+                    FetchDataEvent(
+                      lat: arguments.lat,
+                      lon: arguments.lon,
+                      location: arguments.location,
+                    ),
+                  );
             }
-            if (state is Error) {
+            if (state is ErrorWeather) {
               return Text('Error ${state.message}');
             }
-            if (state is Loaded) {
+            if (state is LoadedWeather) {
               final current = state.currentWeather;
               final forcastList = state.forcastList;
               var size = MediaQuery.of(context).size;
