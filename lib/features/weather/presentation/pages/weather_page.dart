@@ -60,7 +60,7 @@ class WeatherView extends StatelessWidget {
           preferredSize: Size.fromHeight(60),
           child: _getAppBar(context),
         ),
-        body: _getBody(),
+        body: _getBody(context),
       ),
     );
   }
@@ -103,45 +103,61 @@ class WeatherView extends StatelessWidget {
     );
   }
 
-  Widget _getBody() {
+  Widget _getBody(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return SizedBox.expand(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(5),
-        child: BlocBuilder<WeatherBloc, WeatherState>(
-          builder: (context, state) {
-            if (state is WeatherInitial) {
-              context.read<WeatherBloc>().add(
-                    FetchDataEvent(
-                      lat: arguments.lat,
-                      lon: arguments.lon,
-                      location: arguments.location,
-                    ),
-                  );
-            }
-            if (state is ErrorWeather) {
-              return Text('Error ${state.message}');
-            }
-            if (state is LoadedWeather) {
-              final current = state.currentWeather;
-              final forcastList = state.forcastList;
-              var size = MediaQuery.of(context).size;
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 10),
-                  MainSection(current: current, location: state.location),
-                  const SizedBox(height: 50),
-                  HourlyForcast(forcastList: forcastList),
-                  const SizedBox(height: 20),
-                  DetailsSection(current: current),
-                ],
-              );
-            }
+      child: RefreshIndicator(
+        onRefresh: () => Future.delayed(
+          Duration.zero,
+          () => context.read<WeatherBloc>().add(
+                FetchDataEvent(
+                  lat: arguments.lat,
+                  lon: arguments.lon,
+                  location: arguments.location,
+                ),
+              ),
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(5),
+          child: BlocBuilder<WeatherBloc, WeatherState>(
+            builder: (context, state) {
+              if (state is WeatherInitial) {
+                context.read<WeatherBloc>().add(
+                      FetchDataEvent(
+                        lat: arguments.lat,
+                        lon: arguments.lon,
+                        location: arguments.location,
+                      ),
+                    );
+              }
+              if (state is ErrorWeather) {
+                return Text('Error ${state.message}');
+              }
+              if (state is LoadedWeather) {
+                final current = state.currentWeather;
+                final forcastList = state.forcastList;
+                var size = MediaQuery.of(context).size;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 10),
+                    MainSection(current: current, location: state.location),
+                    const SizedBox(height: 50),
+                    HourlyForcast(forcastList: forcastList),
+                    const SizedBox(height: 20),
+                    DetailsSection(current: current),
+                  ],
+                );
+              }
 
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
+              return SizedBox(
+                height: size.height,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
