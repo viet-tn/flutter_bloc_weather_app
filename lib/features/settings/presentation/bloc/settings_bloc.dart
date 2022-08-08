@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../../../../core/usecases/usecases.dart';
 import '../../domain/entities/settings.dart';
@@ -16,12 +18,17 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final GetSettings getSettings;
   final SaveSettings saveSettings;
   SettingsBloc(this.getSettings, this.saveSettings)
-      : super(const SettingsState(
-          Settings(
-            theme: WeatherAppTheme.dark,
-            metric: WeatherMetric.celcius,
+      : super(
+          SettingsState(
+            Settings(
+              theme: SchedulerBinding.instance.window.platformBrightness ==
+                      Brightness.dark
+                  ? WeatherAppTheme.dark
+                  : WeatherAppTheme.light,
+              metric: WeatherMetric.celcius,
+            ),
           ),
-        )) {
+        ) {
     on<LoadSettingEvent>(_onLoadSettingEvent);
     on<ChangeWeatherAppThemeEvent>(_onChangeWeatherAppThemeEvent);
   }
@@ -33,10 +40,17 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     settings.fold(
       (failure) {
         log('settings_bloc: getSettings failure');
-        emit(const SettingsState(Settings(
-          theme: WeatherAppTheme.light,
-          metric: WeatherMetric.celcius,
-        )));
+        emit(
+          SettingsState(
+            Settings(
+              theme: SchedulerBinding.instance.window.platformBrightness ==
+                      Brightness.dark
+                  ? WeatherAppTheme.dark
+                  : WeatherAppTheme.light,
+              metric: WeatherMetric.celcius,
+            ),
+          ),
+        );
       },
       (value) {
         log('settings_bloc: getSettings success ${value.theme.name}');

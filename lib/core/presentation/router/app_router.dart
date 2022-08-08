@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_weather_app/features/weather/presentation/bloc/weather_bloc.dart';
+import '../../../features/injection_container.dart';
 import '../../../features/search/presentation/pages/location_search_page.dart';
 import '../../../features/settings/presentation/pages/settings_page.dart';
 import '../../../features/weather/presentation/pages/weather_page.dart';
@@ -9,18 +12,10 @@ class AppRouter {
       case WeatherPage.routeName:
         return MaterialPageRoute(
           builder: (_) {
-            final args = routeSettings.arguments as WeatherPageArguments?;
-            return args == null
-                ? const WeatherPage(
-                    arguments: WeatherPageArguments(
-                      lat: 10.7546664,
-                      lon: 106.4150315,
-                      location: 'Ho Chi Minh City',
-                    ),
-                  )
-                : WeatherPage(
-                    arguments: args,
-                  );
+            return BlocProvider(
+              create: (context) => sl<WeatherBloc>(),
+              child: const WeatherPage(),
+            );
           },
           settings: routeSettings,
         );

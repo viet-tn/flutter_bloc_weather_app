@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
+// import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 
@@ -37,7 +37,7 @@ class GeocodingRemoteDataSourceImpl implements GeocodingRemoteDataSource {
       headers: {'Content-Type': 'application/json'},
     );
 
-    log(response.body);
+    // log(response.body);
 
     if (response.statusCode != 200) throw ServerException();
     return <GeocodingLocationModel>[

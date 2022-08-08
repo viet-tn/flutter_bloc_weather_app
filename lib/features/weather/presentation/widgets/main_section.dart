@@ -24,11 +24,7 @@ class MainSection extends StatelessWidget {
         // TODO: Format datetime
         Text(
           '${DateTime.now()}',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            color: Colors.black.withOpacity(.5),
-          ),
+          style: Theme.of(context).textTheme.subtitle1,
         ),
         const SizedBox(height: 30),
         Row(

@@ -40,21 +40,21 @@ class WeatherModel extends Weather {
 
   factory WeatherModel.fromMap(Map<String, dynamic> map) {
     return WeatherModel(
-      temp: map['temp'] as double,
-      tempMin: map['tempMin'] as double,
-      tempMax: map['tempMax'] as double,
-      feelsLike: map['feelsLike'] as double,
+      temp: (map['temp'] as num).toDouble(),
+      tempMin: (map['tempMin'] as num).toDouble(),
+      tempMax: (map['tempMax'] as num).toDouble(),
+      feelsLike: (map['feelsLike'] as num).toDouble(),
       icon: map['icon'] as String,
       description: map['description'] as String,
-      humidity: map['humidity'] as int,
-      pressure: map['pressure'] as int,
-      visibility: map['visibility'] as int,
-      windSpeed: map['windSpeed'] as double,
-      windDegree: map['windDegree'] as int,
-      clouds: map['clouds'] as int,
-      sunrise: map['sunrise'] as int,
-      sunset: map['sunset'] as int,
-      timezone: map['timeZone'] as int,
+      humidity: (map['humidity'] as num).toInt(),
+      pressure: (map['pressure'] as num).toInt(),
+      visibility: (map['visibility'] as num).toInt(),
+      windSpeed: (map['windSpeed'] as num).toDouble(),
+      windDegree: (map['windDegree'] as num).toInt(),
+      clouds: (map['clouds'] as num).toInt(),
+      sunrise: (map['sunrise'] as num).toInt(),
+      sunset: (map['sunset'] as num).toInt(),
+      timezone: (map['timeZone'] as num).toInt(),
     );
   }
 }

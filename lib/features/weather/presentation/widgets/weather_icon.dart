@@ -7,7 +7,7 @@ class WeatherIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image(
-      image: NetworkImage('https://openweathermap.org/img/wn/$iconName@2x.png'),
+      image: AssetImage('assets/weather_icon/$iconName@4x.png'),
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import '../models/models.dart';
 import 'package:http/http.dart' as http;
@@ -104,12 +103,9 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
     );
 
     if (response.statusCode != 200) throw ServerException();
-    // log(response.body);
-    // log('list ${json.decode(response.body)['list']}');
 
     final forcastList =
         _apiMapToThreeHrsWeatherModelMap(json.decode(response.body))['list'];
-    // log('list ${forcastList}');
     return <ThreeHrsWeatherModel>[
       for (var forcast in forcastList) ThreeHrsWeatherModel.fromMap(forcast)
     ];
@@ -132,12 +128,9 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
       headers: {'Content-Type': 'application/json'},
     );
 
-    log(response.body);
-
     if (response.statusCode != 200) throw ServerException();
 
     final weatherMap = _apiMapToWeatherModelMap(json.decode(response.body));
-    log(weatherMap.toString());
     return WeatherModel.fromMap(weatherMap);
   }
 }

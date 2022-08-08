@@ -1,12 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../search/presentation/pages/location_search_page.dart';
 import '../../../settings/presentation/pages/settings_page.dart';
-import '../../injection_container.dart';
 import '../bloc/weather_bloc.dart';
 import '../widgets/main_section.dart';
 import '../widgets/widgets.dart';
@@ -23,52 +19,36 @@ class WeatherPageArguments {
   });
 }
 
-class WeatherPage extends StatelessWidget {
+class WeatherPage extends StatefulWidget {
   const WeatherPage({
     Key? key,
-    required this.arguments,
   }) : super(key: key);
 
   static const routeName = '/';
 
-  final WeatherPageArguments arguments;
-
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<WeatherBloc>(),
-      child: WeatherView(
-        arguments: arguments,
-      ),
-    );
-  }
+  State<WeatherPage> createState() => _WeatherPageState();
 }
 
-class WeatherView extends StatelessWidget {
-  const WeatherView({
-    Key? key,
-    required this.arguments,
-  }) : super(key: key);
-
-  final WeatherPageArguments arguments;
-
+class _WeatherPageState extends State<WeatherPage> {
+  WeatherPageArguments? arguments;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60),
-          child: _getAppBar(context),
+          preferredSize: const Size.fromHeight(60),
+          child: _getAppBar(),
         ),
-        body: _getBody(context),
+        body: _getBody(),
       ),
     );
   }
 
-  Widget _getAppBar(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+  Widget _getAppBar() {
     return AppBar(
       elevation: 0,
+      scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
       actions: [
         Row(
@@ -77,16 +57,25 @@ class WeatherView extends StatelessWidget {
               'Locations',
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.black,
               ),
             ),
             const SizedBox(width: 10),
             IconButton(
-              onPressed: () =>
-                  Navigator.pushNamed(context, LocationSearchPage.routeName),
+              onPressed: () async {
+                final args = await Navigator.pushNamed(
+                    context, LocationSearchPage.routeName);
+                arguments = args as WeatherPageArguments;
+                if (!mounted) return;
+                context.read<WeatherBloc>().add(
+                      FetchDataEvent(
+                        lat: arguments!.lat,
+                        lon: arguments!.lon,
+                        location: arguments!.location,
+                      ),
+                    );
+              },
               icon: const Icon(
                 Icons.search,
-                color: Colors.black,
               ),
             ),
             IconButton(
@@ -94,7 +83,6 @@ class WeatherView extends StatelessWidget {
                   Navigator.pushNamed(context, SettingsPage.routeName),
               icon: const Icon(
                 Icons.more_vert,
-                color: Colors.black,
               ),
             ),
           ],
@@ -103,32 +91,35 @@ class WeatherView extends StatelessWidget {
     );
   }
 
-  Widget _getBody(BuildContext context) {
+  Widget _getBody() {
     var size = MediaQuery.of(context).size;
     return SizedBox.expand(
       child: RefreshIndicator(
-        onRefresh: () => Future.delayed(
-          Duration.zero,
-          () => context.read<WeatherBloc>().add(
-                FetchDataEvent(
-                  lat: arguments.lat,
-                  lon: arguments.lon,
-                  location: arguments.location,
+        onRefresh: () async {
+          if (arguments == null) return;
+          Future.delayed(
+            Duration.zero,
+            () => context.read<WeatherBloc>().add(
+                  FetchDataEvent(
+                    lat: arguments!.lat,
+                    lon: arguments!.lon,
+                    location: arguments!.location,
+                  ),
                 ),
-              ),
-        ),
+          );
+        },
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(5),
           child: BlocBuilder<WeatherBloc, WeatherState>(
             builder: (context, state) {
               if (state is WeatherInitial) {
-                context.read<WeatherBloc>().add(
-                      FetchDataEvent(
-                        lat: arguments.lat,
-                        lon: arguments.lon,
-                        location: arguments.location,
-                      ),
-                    );
+                return SizedBox(
+                  height: size.height / 2,
+                  width: size.width,
+                  child: const Center(
+                    child: Text('Please search for weather!'),
+                  ),
+                );
               }
               if (state is ErrorWeather) {
                 return Text('Error ${state.message}');
@@ -136,7 +127,6 @@ class WeatherView extends StatelessWidget {
               if (state is LoadedWeather) {
                 final current = state.currentWeather;
                 final forcastList = state.forcastList;
-                var size = MediaQuery.of(context).size;
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

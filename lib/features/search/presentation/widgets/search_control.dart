@@ -34,7 +34,6 @@ class _TriviaControlsState extends State<SearchControls> {
       child: TextField(
         style: const TextStyle(
           fontSize: 20,
-          color: Colors.black87,
         ),
         decoration: const InputDecoration(
           contentPadding: EdgeInsets.all(10),
@@ -42,7 +41,6 @@ class _TriviaControlsState extends State<SearchControls> {
           border: InputBorder.none,
           prefixIcon: Icon(
             LineIcons.search,
-            color: Colors.grey,
             size: 24,
           ),
           hintText: 'New York, Ho Chi Minh,...',
