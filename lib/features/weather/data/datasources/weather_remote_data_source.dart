@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import '../models/models.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/secrets/secret.dart';
+import '../models/models.dart';
 
 const _baseUrl = 'api.openweathermap.org';
 
@@ -22,12 +22,16 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
   });
 
   Map<String, dynamic> _apiMapToWeatherModelMap(Map<String, dynamic> map) {
+    final coord = map['coord'];
     final weather = map['weather'][0];
     final main = map['main'];
     final wind = map['wind'];
     final sys = map['sys'];
 
     return <String, dynamic>{
+      'lat': coord['lat'],
+      'lon': coord['lon'],
+      'location': map['name'],
       'temp': main['temp'],
       'tempMin': main['temp_min'],
       'tempMax': main['temp_max'],
@@ -42,7 +46,7 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
       'clouds': map['clouds']['all'],
       'sunrise': sys['sunrise'],
       'sunset': sys['sunset'],
-      'timeZone': map['timezone'],
+      'timezone': map['timezone'],
     };
   }
 
@@ -61,6 +65,9 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
             return <String, dynamic>{
               'time': e['dt'],
               'precipitation': (e['pop'] as num).toDouble(),
+              'lat': city['coord']['lat'],
+              'lon': city['coord']['lon'],
+              'location': city['name'],
               'temp': main['temp'],
               'tempMin': main['temp_min'],
               'tempMax': main['temp_max'],

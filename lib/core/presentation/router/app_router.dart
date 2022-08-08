@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_weather_app/features/weather/presentation/bloc/weather_bloc.dart';
+import '../../../features/weather/presentation/bloc/weather_bloc.dart';
 import '../../../features/injection_container.dart';
 import '../../../features/search/presentation/pages/location_search_page.dart';
 import '../../../features/settings/presentation/pages/settings_page.dart';

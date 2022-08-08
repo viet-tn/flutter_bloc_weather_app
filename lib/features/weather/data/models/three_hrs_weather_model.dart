@@ -2,6 +2,9 @@ import '../../domain/entities/entities.dart';
 
 class ThreeHrsWeatherModel extends ThreeHrsWeather {
   const ThreeHrsWeatherModel({
+    required super.lat,
+    required super.lon,
+    required super.location,
     required super.time,
     required super.precipitation,
     required super.temp,
@@ -23,6 +26,9 @@ class ThreeHrsWeatherModel extends ThreeHrsWeather {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'lat': lat,
+      'lon': lon,
+      'location': location,
       'time': time,
       'precipitation': precipitation,
       'temp': temp,
@@ -45,6 +51,9 @@ class ThreeHrsWeatherModel extends ThreeHrsWeather {
 
   factory ThreeHrsWeatherModel.fromMap(Map<String, dynamic> map) {
     return ThreeHrsWeatherModel(
+      lat: (map['lat'] as num).toDouble(),
+      lon: (map['lon'] as num).toDouble(),
+      location: map['location'] as String,
       time: map['time'] as int,
       precipitation: (map['precipitation'] as num).toDouble(),
       temp: (map['temp'] as num).toDouble(),

@@ -12,6 +12,9 @@ class ThreeHrsWeather extends Weather {
   const ThreeHrsWeather({
     required this.time,
     required this.precipitation,
+    required super.lat,
+    required super.lon,
+    required super.location,
     required super.temp,
     required super.tempMin,
     required super.tempMax,

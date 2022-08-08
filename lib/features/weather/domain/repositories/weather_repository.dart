@@ -12,4 +12,6 @@ abstract class WeatherRepository {
     required double lat,
     required double lon,
   });
+  Future<Either<Failure, Weather>> getCachedCurrentWeather();
+  Future<Either<Failure, List<ThreeHrsWeather>>> getCached5Days3HrsWeathers();
 }

@@ -8,6 +8,7 @@ import 'params.dart';
 
 class GetCurrentWeather implements UseCase<Weather, Coordinate> {
   final WeatherRepository _repository;
+
   GetCurrentWeather(WeatherRepository repository) : _repository = repository;
 
   @override

@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../injection_container.dart';
 import '../../../search/presentation/pages/location_search_page.dart';
 import '../../../settings/presentation/pages/settings_page.dart';
 import '../bloc/weather_bloc.dart';
 import '../widgets/main_section.dart';
 import '../widgets/widgets.dart';
-
-class WeatherPageArguments {
-  final String location;
-  final double lat;
-  final double lon;
-
-  const WeatherPageArguments({
-    required this.location,
-    required this.lat,
-    required this.lon,
-  });
-}
+import 'weather_page_arguments.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({
@@ -31,7 +22,10 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
+  final jsonString =
+      sl<SharedPreferences>().getString(WeatherPageArguments.key);
   WeatherPageArguments? arguments;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -73,6 +67,8 @@ class _WeatherPageState extends State<WeatherPage> {
                         location: arguments!.location,
                       ),
                     );
+                sl<SharedPreferences>()
+                    .setString(WeatherPageArguments.key, arguments!.toJson());
               },
               icon: const Icon(
                 Icons.search,
@@ -96,7 +92,10 @@ class _WeatherPageState extends State<WeatherPage> {
     return SizedBox.expand(
       child: RefreshIndicator(
         onRefresh: () async {
-          if (arguments == null) return;
+          final jsonString =
+              sl<SharedPreferences>().getString(WeatherPageArguments.key);
+          if (jsonString == null) return;
+          arguments ??= WeatherPageArguments.fromJson(jsonString);
           Future.delayed(
             Duration.zero,
             () => context.read<WeatherBloc>().add(

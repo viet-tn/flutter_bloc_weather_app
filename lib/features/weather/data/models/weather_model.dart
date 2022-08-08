@@ -2,6 +2,9 @@ import '../../domain/entities/weather.dart';
 
 class WeatherModel extends Weather {
   const WeatherModel({
+    required super.lat,
+    required super.lon,
+    required super.location,
     required super.temp,
     required super.tempMin,
     required super.tempMax,
@@ -21,11 +24,15 @@ class WeatherModel extends Weather {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'lat': lat,
+      'lon': lon,
+      'location': location,
       'temp': temp,
       'tempMin': tempMin,
       'tempMax': tempMax,
       'feelsLike': feelsLike,
       'icon': icon,
+      'description': description,
       'humidity': humidity,
       'pressure': pressure,
       'visibility': visibility,
@@ -40,6 +47,9 @@ class WeatherModel extends Weather {
 
   factory WeatherModel.fromMap(Map<String, dynamic> map) {
     return WeatherModel(
+      lat: (map['lat'] as num).toDouble(),
+      lon: (map['lon'] as num).toDouble(),
+      location: map['location'] as String,
       temp: (map['temp'] as num).toDouble(),
       tempMin: (map['tempMin'] as num).toDouble(),
       tempMax: (map['tempMax'] as num).toDouble(),
@@ -54,7 +64,7 @@ class WeatherModel extends Weather {
       clouds: (map['clouds'] as num).toInt(),
       sunrise: (map['sunrise'] as num).toInt(),
       sunset: (map['sunset'] as num).toInt(),
-      timezone: (map['timeZone'] as num).toInt(),
+      timezone: (map['timezone'] as num).toInt(),
     );
   }
 }

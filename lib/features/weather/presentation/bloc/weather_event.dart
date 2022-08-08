@@ -21,3 +21,12 @@ class FetchDataEvent extends WeatherEvent {
   @override
   List<Object> get props => [lat, lon];
 }
+
+class FetchDataFromCacheEvent extends WeatherEvent {
+  final String location;
+
+  const FetchDataFromCacheEvent(this.location);
+
+  @override
+  List<Object> get props => [location];
+}

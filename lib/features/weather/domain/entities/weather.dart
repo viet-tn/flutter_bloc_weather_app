@@ -3,6 +3,9 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class Weather extends Equatable {
+  final double lat;
+  final double lon;
+  final String location;
   // Celcius
   final double temp;
   final double tempMin;
@@ -30,6 +33,9 @@ class Weather extends Equatable {
   final int timezone;
 
   const Weather({
+    required this.lat,
+    required this.lon,
+    required this.location,
     required this.temp,
     required this.tempMin,
     required this.tempMax,
@@ -49,6 +55,9 @@ class Weather extends Equatable {
 
   @override
   List<Object> get props => [
+        lat,
+        lon,
+        location,
         temp,
         temp,
         tempMin,
