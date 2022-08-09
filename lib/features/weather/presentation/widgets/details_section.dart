@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/helpers/string_time_from_epoch.dart';
+import '../../../../core/presentation/helpers/text_display.dart';
 import '../../domain/entities/entities.dart';
+import 'widgets.dart';
 
 class DetailsSection extends StatelessWidget {
   final Weather current;
@@ -10,6 +11,7 @@ class DetailsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    const dividerIntent = 32.0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -39,59 +41,59 @@ class DetailsSection extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: const [
-                        Icon(Icons.sunny),
-                        SizedBox(width: 10),
-                        Text(
-                          'Sunrise',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      hourFromEpoch(current.sunrise),
-                      style: const TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
+                DetailsTile(
+                  icon: Icons.water_drop,
+                  title: 'Humidity',
+                  content: '${current.humidity}%',
                 ),
-                const SizedBox(height: 5),
-                Divider(
-                  indent: (size.width - 60) * .05,
-                  thickness: 1,
+                const DetailsDivider(
+                  indent: dividerIntent,
                 ),
-                const SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: const [
-                        Icon(Icons.dark_mode),
-                        SizedBox(width: 10),
-                        Text(
-                          'Sunset',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      hourFromEpoch(current.sunset),
-                      style: const TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
+                DetailsTile(
+                  icon: Icons.cloud,
+                  title: 'Clouds',
+                  content: '${current.clouds} %',
                 ),
-                // const Divider(indent: 50),
+                const DetailsDivider(
+                  indent: dividerIntent,
+                ),
+                DetailsTile(
+                  icon: Icons.air,
+                  title: 'Wind speed',
+                  content: '${current.windSpeed.toStringAsFixed(2)} m/s',
+                ),
+                const DetailsDivider(
+                  indent: dividerIntent,
+                ),
+                DetailsTile(
+                  icon: Icons.dark_mode,
+                  title: 'Sunset',
+                  content: TextDisplay.hourFromEpoch(current.sunset),
+                ),
+                const DetailsDivider(
+                  indent: dividerIntent,
+                ),
+                DetailsTile(
+                  icon: Icons.sunny,
+                  title: 'Sunrise',
+                  content: TextDisplay.hourFromEpoch(current.sunrise),
+                ),
+                const DetailsDivider(
+                  indent: dividerIntent,
+                ),
+                DetailsTile(
+                  icon: Icons.thermostat_auto,
+                  title: 'Pressure',
+                  content: '${current.pressure} hPa',
+                ),
+                const DetailsDivider(
+                  indent: dividerIntent,
+                ),
+                DetailsTile(
+                  icon: Icons.visibility,
+                  title: 'Visibility',
+                  content: TextDisplay.fromVisibility(current.visibility),
+                ),
               ],
             ),
           ),

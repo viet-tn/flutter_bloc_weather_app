@@ -17,6 +17,7 @@ part 'settings_state.dart';
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final GetSettings getSettings;
   final SaveSettings saveSettings;
+
   SettingsBloc(this.getSettings, this.saveSettings)
       : super(
           SettingsState(
@@ -31,6 +32,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         ) {
     on<LoadSettingEvent>(_onLoadSettingEvent);
     on<ChangeWeatherAppThemeEvent>(_onChangeWeatherAppThemeEvent);
+    on<ChangeWeatherMetricEvent>(_onChangeWeatherMetricEvent);
   }
 
   FutureOr<void> _onLoadSettingEvent(
@@ -69,6 +71,15 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       (l) => log('save error'),
       (r) => log('save success ${newState.settings.theme.name}'),
     );
+    emit(newState);
+  }
+
+  FutureOr<void> _onChangeWeatherMetricEvent(
+      ChangeWeatherMetricEvent event, Emitter<SettingsState> emit) async {
+    final newState =
+        state.copyWith(settings: state.settings.copyWith(metric: event.metric));
+
+    await saveSettings(params: newState.settings);
     emit(newState);
   }
 }

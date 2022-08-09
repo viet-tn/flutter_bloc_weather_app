@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
+import '../../../../core/presentation/helpers/text_display.dart';
+import '../../../settings/presentation/bloc/settings_bloc.dart';
 import '../../domain/entities/entities.dart';
 import 'widgets.dart';
 
@@ -21,9 +25,8 @@ class MainSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 15),
-        // TODO: Format datetime
         Text(
-          '${DateTime.now()}',
+          DateFormat.yMMMMEEEEd().format(DateTime.now()),
           style: Theme.of(context).textTheme.subtitle1,
         ),
         const SizedBox(height: 30),
@@ -36,26 +39,34 @@ class MainSection extends StatelessWidget {
                 iconName: current.icon,
               ),
             ),
-            Text(
-              '${current.temp.round()}°',
-              style: const TextStyle(
-                fontSize: 80,
-                fontWeight: FontWeight.w400,
-              ),
+            BlocBuilder<SettingsBloc, SettingsState>(
+              builder: (context, state) {
+                return Text(
+                  TextDisplay.temperature(current.temp, state.settings.metric),
+                  style: const TextStyle(
+                    fontSize: 80,
+                    fontWeight: FontWeight.w400,
+                  ),
+                );
+              },
             )
           ],
         ),
         const SizedBox(height: 30),
-        Text(
-          '${current.tempMax.round()}°/${current.tempMin.round()} Feels like ${current.feelsLike.round()}°',
-          style: const TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.w400,
-          ),
+        BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, state) {
+            return Text(
+              '${TextDisplay.temperature(current.tempMax, state.settings.metric)}/${TextDisplay.temperature(current.tempMin, state.settings.metric)} Feels like ${TextDisplay.temperature(current.feelsLike, state.settings.metric)}',
+              style: const TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.w400,
+              ),
+            );
+          },
         ),
         const SizedBox(height: 15),
         Text(
-          toTitle(current.description),
+          TextDisplay.toTitle(current.description),
           style: const TextStyle(
             fontSize: 26,
             fontWeight: FontWeight.w400,
@@ -64,13 +75,4 @@ class MainSection extends StatelessWidget {
       ],
     );
   }
-}
-
-String toTitle(String string) {
-  final words = string.split(' ');
-  final uppercase = words.map((e) {
-    if (e.trim().isEmpty) return '';
-    return e[0].toUpperCase() + e.substring(1);
-  });
-  return uppercase.join(' ');
 }

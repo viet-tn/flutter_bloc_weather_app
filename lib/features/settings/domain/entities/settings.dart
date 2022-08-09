@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 enum WeatherAppTheme { dark, light }
 
-enum WeatherMetric { celcius, fahrenheit }
+enum WeatherMetric { celcius, fahrenheit, kevin }
 
 class Settings extends Equatable {
   final WeatherAppTheme theme;

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,6 +28,7 @@ class SettingsLocalDataSourceImp implements SettingsLocalDataSource {
 
   @override
   Future<void> cacheSettings(SettingsModel settingsModel) {
+    log(json.encode(settingsModel.toMap()));
     return sharedPreferences.setString(
       cachedSettings,
       json.encode(settingsModel.toMap()),

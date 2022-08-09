@@ -4,10 +4,10 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import '../../domain/usecases/usecases.dart';
 
 import '../../domain/entities/entities.dart';
 import '../../domain/usecases/params.dart';
+import '../../domain/usecases/usecases.dart';
 
 part 'weather_event.dart';
 part 'weather_state.dart';

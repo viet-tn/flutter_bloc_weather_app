@@ -28,6 +28,7 @@ class HourlyForcast extends StatelessWidget {
           ),
         ),
         Container(
+          height: 260,
           width: size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
@@ -41,19 +42,17 @@ class HourlyForcast extends StatelessWidget {
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              child: IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: forcastList
-                      .map(
-                        (e) => ForcastCard(
-                          forcast: e,
-                          minValue: tempList.first,
-                          maxValue: tempList.last,
-                        ),
-                      )
-                      .toList(),
-                ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: forcastList
+                    .map(
+                      (e) => ForcastCard(
+                        forcast: e,
+                        minValue: tempList.first,
+                        maxValue: tempList.last,
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ),

@@ -40,6 +40,8 @@ dependencies:
   country_codes: ^2.2.0
   # Icons
   line_icons: ^2.0.1
+  # Datetime formarter
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

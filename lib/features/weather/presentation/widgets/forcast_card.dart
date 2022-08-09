@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/helpers/string_time_from_epoch.dart';
+import '../../../../core/presentation/helpers/text_display.dart';
+import '../../../settings/presentation/bloc/settings_bloc.dart';
 import '../../domain/entities/three_hrs_weather.dart';
 import 'widgets.dart';
 
@@ -25,7 +27,7 @@ class ForcastCard extends StatelessWidget {
           Column(
             children: [
               Text(
-                hourFromEpoch(forcast.time),
+                TextDisplay.hourFromEpoch(forcast.time),
                 style: const TextStyle(
                   fontSize: 20,
                 ),
@@ -58,12 +60,17 @@ class ForcastCard extends StatelessWidget {
           Column(
             children: [
               const SizedBox(height: 15),
-              Text(
-                ' ${forcast.temp.round()}°',
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                ),
+              BlocBuilder<SettingsBloc, SettingsState>(
+                builder: (context, state) {
+                  return Text(
+                    TextDisplay.temperature(
+                        forcast.temp, state.settings.metric),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 2),
               Container(
