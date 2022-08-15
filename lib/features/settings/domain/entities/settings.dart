@@ -13,6 +13,11 @@ class Settings extends Equatable {
     required this.metric,
   });
 
+  static const defaultSettings = Settings(
+    theme: WeatherAppTheme.light,
+    metric: WeatherMetric.celcius,
+  );
+
   @override
   List<Object> get props => [theme, metric];
 

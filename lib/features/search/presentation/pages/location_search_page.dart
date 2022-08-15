@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../injection_container.dart';
-import '../bloc/search_bloc.dart';
 import '../widgets/widgets.dart';
 
 class LocationSearchPage extends StatelessWidget {
@@ -12,10 +9,7 @@ class LocationSearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<SearchBloc>(),
-      child: const LocationSearchView(),
-    );
+    return const LocationSearchView();
   }
 }
 

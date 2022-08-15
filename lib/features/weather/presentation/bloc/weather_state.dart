@@ -9,10 +9,10 @@ abstract class WeatherState extends Equatable {
 
 class WeatherInitial extends WeatherState {}
 
-class ErrorWeather extends WeatherState {
+class WeatherError extends WeatherState {
   final String message;
 
-  const ErrorWeather({
+  const WeatherError({
     required this.message,
   });
 
@@ -20,14 +20,14 @@ class ErrorWeather extends WeatherState {
   List<Object> get props => [message];
 }
 
-class LoadingWeather extends WeatherState {}
+class WeatherLoading extends WeatherState {}
 
-class LoadedWeather extends WeatherState {
+class WeatherLoaded extends WeatherState {
   final String location;
   final Weather currentWeather;
   final List<ThreeHrsWeather> forcastList;
 
-  const LoadedWeather({
+  const WeatherLoaded({
     required this.location,
     required this.currentWeather,
     required this.forcastList,

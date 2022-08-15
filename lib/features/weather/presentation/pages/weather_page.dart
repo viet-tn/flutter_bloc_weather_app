@@ -22,9 +22,7 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  final jsonString =
-      sl<SharedPreferences>().getString(WeatherPageArguments.key);
-  WeatherPageArguments? arguments;
+  late WeatherPageArguments arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +60,13 @@ class _WeatherPageState extends State<WeatherPage> {
                 if (!mounted) return;
                 context.read<WeatherBloc>().add(
                       FetchDataEvent(
-                        lat: arguments!.lat,
-                        lon: arguments!.lon,
-                        location: arguments!.location,
+                        lat: arguments.lat,
+                        lon: arguments.lon,
+                        location: arguments.location,
                       ),
                     );
                 sl<SharedPreferences>()
-                    .setString(WeatherPageArguments.key, arguments!.toJson());
+                    .setString(WeatherPageArguments.key, arguments.toJson());
               },
               icon: const Icon(
                 Icons.search,
@@ -95,14 +93,14 @@ class _WeatherPageState extends State<WeatherPage> {
           final jsonString =
               sl<SharedPreferences>().getString(WeatherPageArguments.key);
           if (jsonString == null) return;
-          arguments ??= WeatherPageArguments.fromJson(jsonString);
+          arguments = WeatherPageArguments.fromJson(jsonString);
           Future.delayed(
             Duration.zero,
             () => context.read<WeatherBloc>().add(
                   FetchDataEvent(
-                    lat: arguments!.lat,
-                    lon: arguments!.lon,
-                    location: arguments!.location,
+                    lat: arguments.lat,
+                    lon: arguments.lon,
+                    location: arguments.location,
                   ),
                 ),
           );
@@ -120,10 +118,10 @@ class _WeatherPageState extends State<WeatherPage> {
                   ),
                 );
               }
-              if (state is ErrorWeather) {
+              if (state is WeatherError) {
                 return Text('Error ${state.message}');
               }
-              if (state is LoadedWeather) {
+              if (state is WeatherLoaded) {
                 final current = state.currentWeather;
                 final forcastList = state.forcastList;
                 return Column(

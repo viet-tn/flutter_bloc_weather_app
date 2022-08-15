@@ -27,34 +27,37 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         _get5days3hrsWeathers = get5days3hrsWeathers,
         _getCachedCurrentWeather = getCachedCurrentWeather,
         _getCached5Days3HrsWeathers = getCached5Days3HrsWeathers,
-        super(WeatherInitial()) {
+        super(WeatherLoading()) {
     on<FetchDataEvent>(_onFetchDataEvent);
     on<FetchDataFromCacheEvent>(_onFetchDataOnCacheEvent);
+    on<SetInitialWeatherEvent>(_onSetInitialWeatherEvent);
   }
 
   FutureOr<void> _onFetchDataEvent(
       FetchDataEvent event, Emitter<WeatherState> emit) async {
-    emit(LoadingWeather());
+    log('_onFetchDataEvent called');
+    emit(WeatherLoading());
 
     final currentWeather = await _getCurrentWeather(
         params: Coordinate(lat: event.lat, lon: event.lon));
 
     await currentWeather.fold(
       (failure1) async => emit(
-        ErrorWeather(message: failure1.runtimeType.toString()),
+        WeatherError(message: failure1.runtimeType.toString()),
       ),
       (currentWeatherValue) async {
         final forcastList = await _get5days3hrsWeathers(
             params: Coordinate(lat: event.lat, lon: event.lon));
         forcastList.fold(
           (failure2) => emit(
-            ErrorWeather(message: failure2.runtimeType.toString()),
+            WeatherError(message: failure2.runtimeType.toString()),
           ),
           (forcastListValue) => emit(
-            LoadedWeather(
-                location: event.location,
-                currentWeather: currentWeatherValue,
-                forcastList: forcastListValue),
+            WeatherLoaded(
+              location: event.location,
+              currentWeather: currentWeatherValue,
+              forcastList: forcastListValue,
+            ),
           ),
         );
       },
@@ -63,8 +66,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
 
   FutureOr<void> _onFetchDataOnCacheEvent(
       FetchDataFromCacheEvent event, Emitter<WeatherState> emit) async {
-    emit(LoadingWeather());
     log('_onFetchDataOnCacheEvent called');
+    emit(WeatherLoading());
 
     final currentWeather = await _getCachedCurrentWeather(params: none());
 
@@ -85,14 +88,20 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
           (forcastListValue) {
             log('success load cache');
             emit(
-              LoadedWeather(
-                  location: event.location,
-                  currentWeather: currentWeatherValue,
-                  forcastList: forcastListValue),
+              WeatherLoaded(
+                location: event.location,
+                currentWeather: currentWeatherValue,
+                forcastList: forcastListValue,
+              ),
             );
           },
         );
       },
     );
+  }
+
+  FutureOr<void> _onSetInitialWeatherEvent(
+      SetInitialWeatherEvent event, Emitter<WeatherState> emit) {
+    emit(WeatherInitial());
   }
 }

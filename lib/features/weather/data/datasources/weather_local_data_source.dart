@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import '../models/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/error/exceptions.dart';
+import '../models/models.dart';
 
 const String cachedForcastList = 'CACHED_FORCAST_LIST';
 const String cachedWeather = 'CACHED_WEATHER';

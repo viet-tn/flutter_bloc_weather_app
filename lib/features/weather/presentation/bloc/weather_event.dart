@@ -7,6 +7,8 @@ abstract class WeatherEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class SetInitialWeatherEvent extends WeatherEvent {}
+
 class FetchDataEvent extends WeatherEvent {
   final double lat;
   final double lon;

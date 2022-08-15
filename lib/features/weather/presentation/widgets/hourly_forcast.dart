@@ -28,7 +28,7 @@ class HourlyForcast extends StatelessWidget {
           ),
         ),
         Container(
-          height: 260,
+          height: 270,
           width: size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),

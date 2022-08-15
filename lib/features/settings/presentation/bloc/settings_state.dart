@@ -1,16 +1,26 @@
 part of 'settings_bloc.dart';
 
-class SettingsState extends Equatable {
+abstract class SettingsState extends Equatable {
+  const SettingsState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class LoadingSettingState extends SettingsState {}
+
+class LoadedSettingsState extends SettingsState {
   final Settings settings;
-  const SettingsState(this.settings);
+
+  const LoadedSettingsState(this.settings);
 
   @override
   List<Object> get props => [settings];
 
-  SettingsState copyWith({
+  LoadedSettingsState copyWith({
     Settings? settings,
   }) {
-    return SettingsState(
+    return LoadedSettingsState(
       settings ?? this.settings,
     );
   }

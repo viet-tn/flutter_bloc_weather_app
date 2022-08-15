@@ -41,13 +41,17 @@ class MainSection extends StatelessWidget {
             ),
             BlocBuilder<SettingsBloc, SettingsState>(
               builder: (context, state) {
-                return Text(
-                  TextDisplay.temperature(current.temp, state.settings.metric),
-                  style: const TextStyle(
-                    fontSize: 80,
-                    fontWeight: FontWeight.w400,
-                  ),
-                );
+                if (state is LoadedSettingsState) {
+                  return Text(
+                    TextDisplay.temperature(
+                        current.temp, state.settings.metric),
+                    style: const TextStyle(
+                      fontSize: 80,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  );
+                }
+                return const Center(child: CircularProgressIndicator());
               },
             )
           ],
@@ -55,13 +59,16 @@ class MainSection extends StatelessWidget {
         const SizedBox(height: 30),
         BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {
-            return Text(
-              '${TextDisplay.temperature(current.tempMax, state.settings.metric)}/${TextDisplay.temperature(current.tempMin, state.settings.metric)} Feels like ${TextDisplay.temperature(current.feelsLike, state.settings.metric)}',
-              style: const TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.w400,
-              ),
-            );
+            if (state is LoadedSettingsState) {
+              return Text(
+                '${TextDisplay.temperature(current.tempMax, state.settings.metric)}/${TextDisplay.temperature(current.tempMin, state.settings.metric)} Feels like ${TextDisplay.temperature(current.feelsLike, state.settings.metric)}',
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w400,
+                ),
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
           },
         ),
         const SizedBox(height: 15),

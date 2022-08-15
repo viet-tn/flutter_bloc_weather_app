@@ -12,7 +12,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //! Features
   // Bloc
-  sl.registerLazySingleton(() => WeatherBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => WeatherBloc(sl(), sl(), sl(), sl()));
 
   // Use cases
   sl.registerLazySingleton(() => GetCurrentWeather(sl()));

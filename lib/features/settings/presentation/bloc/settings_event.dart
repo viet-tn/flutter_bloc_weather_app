@@ -7,8 +7,8 @@ abstract class SettingsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadSettingEvent extends SettingsEvent {
-  const LoadSettingEvent();
+class FetchSettingEvent extends SettingsEvent {
+  const FetchSettingEvent();
 
   @override
   List<Object> get props => [];

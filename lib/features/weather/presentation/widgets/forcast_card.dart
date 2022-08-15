@@ -62,14 +62,17 @@ class ForcastCard extends StatelessWidget {
               const SizedBox(height: 15),
               BlocBuilder<SettingsBloc, SettingsState>(
                 builder: (context, state) {
-                  return Text(
-                    TextDisplay.temperature(
-                        forcast.temp, state.settings.metric),
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  );
+                  if (state is LoadedSettingsState) {
+                    return Text(
+                      TextDisplay.temperature(
+                          forcast.temp, state.settings.metric),
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    );
+                  }
+                  return const Center(child: CircularProgressIndicator());
                 },
               ),
               const SizedBox(height: 2),
