@@ -1,15 +1,20 @@
+# A Flutter Weather app use BLoC with Clean Architecture design.
 
-# A Flutter Weather app use bloc for state management and Clean architecture
+# Requirements
 
-# Requires
-You need to add your API key in lib\core\secrets\secrets.dart -> const String apiKey = 'YourAPIKey';
-[Get your API key](https://openweathermap.org/price)
+You need to add your API key in <b>lib\core\secrets\secrets.dart -> const String apiKey = 'YourAPIKey';</b>
 
-## Getting Started
+### [Get your API key](https://openweathermap.org/price)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Screenshots
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<p align="left">
+  <img src="https://github.com/VietNgThanh/flutter_bloc_weather_app/blob/master/resources/screenshots/home_dark.png?raw=true" width="250"/>
+  <img src="https://github.com/VietNgThanh/flutter_bloc_weather_app/blob/master/resources/screenshots/home_2_dark.png?raw=true" width="250"/>
+  <img src="https://github.com/VietNgThanh/flutter_bloc_weather_app/blob/master/resources/screenshots/search_dark.png?raw=true" width="250"/>
+  <img src="https://github.com/VietNgThanh/flutter_bloc_weather_app/blob/master/resources/screenshots/settings_dark.png?raw=true" width="250"/>
+  <img src="https://github.com/VietNgThanh/flutter_bloc_weather_app/blob/master/resources/screenshots/home.png?raw=true" width="250"/>
+  <img src="https://github.com/VietNgThanh/flutter_bloc_weather_app/blob/master/resources/screenshots/search.png?raw=true" width="250"/>
+  <img src="https://github.com/VietNgThanh/flutter_bloc_weather_app/blob/master/resources/screenshots/settings.png?raw=true" width="250"/>
+  
+</p>
