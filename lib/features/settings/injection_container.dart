@@ -12,7 +12,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //! Features
   // Bloc
-  sl.registerLazySingleton(() => SettingsBloc(sl(), sl()));
+  sl.registerFactory(() => SettingsBloc(sl(), sl()));
 
   // Use cases
   sl.registerLazySingleton(() => GetSettings(sl()));

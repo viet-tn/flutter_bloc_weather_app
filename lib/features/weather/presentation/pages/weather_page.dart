@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_weather_app/core/network/network_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../injection_container.dart';
@@ -89,22 +90,7 @@ class _WeatherPageState extends State<WeatherPage> {
     var size = MediaQuery.of(context).size;
     return SizedBox.expand(
       child: RefreshIndicator(
-        onRefresh: () async {
-          final jsonString =
-              sl<SharedPreferences>().getString(WeatherPageArguments.key);
-          if (jsonString == null) return;
-          arguments = WeatherPageArguments.fromJson(jsonString);
-          Future.delayed(
-            Duration.zero,
-            () => context.read<WeatherBloc>().add(
-                  FetchDataEvent(
-                    lat: arguments.lat,
-                    lon: arguments.lon,
-                    location: arguments.location,
-                  ),
-                ),
-          );
-        },
+        onRefresh: _onRefresh,
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(5),
           child: BlocBuilder<WeatherBloc, WeatherState>(
@@ -147,6 +133,33 @@ class _WeatherPageState extends State<WeatherPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _onRefresh() async {
+    if (!await sl<NetworkInfo>().isConnected) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No internet connection!'),
+        ),
+      );
+      return;
+    }
+
+    final jsonString =
+        sl<SharedPreferences>().getString(WeatherPageArguments.key);
+    if (jsonString == null) return;
+    arguments = WeatherPageArguments.fromJson(jsonString);
+
+    Future.delayed(
+      Duration.zero,
+      () => context.read<WeatherBloc>().add(
+            FetchDataEvent(
+              lat: arguments.lat,
+              lon: arguments.lon,
+              location: arguments.location,
+            ),
+          ),
     );
   }
 }

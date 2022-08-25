@@ -78,7 +78,6 @@ class SettingsPage extends StatelessWidget {
       backgroundColor: Colors.transparent,
       title: const Text('Settings'),
       centerTitle: true,
-      actions: [],
     );
   }
 }

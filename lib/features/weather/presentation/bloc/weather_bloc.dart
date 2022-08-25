@@ -42,16 +42,18 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         params: Coordinate(lat: event.lat, lon: event.lon));
 
     await currentWeather.fold(
-      (failure1) async => emit(
-        WeatherError(message: failure1.runtimeType.toString()),
-      ),
+      (failure1) async {
+        add(FetchDataFromCacheEvent(event.location));
+        return;
+      },
       (currentWeatherValue) async {
         final forcastList = await _get5days3hrsWeathers(
             params: Coordinate(lat: event.lat, lon: event.lon));
         forcastList.fold(
-          (failure2) => emit(
-            WeatherError(message: failure2.runtimeType.toString()),
-          ),
+          (failure2) {
+            add(FetchDataFromCacheEvent(event.location));
+            return;
+          },
           (forcastListValue) => emit(
             WeatherLoaded(
               location: event.location,

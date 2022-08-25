@@ -15,9 +15,25 @@ class TemperatureUnitToggler extends StatefulWidget {
 }
 
 class _TemperatureUnitTogglerState extends State<TemperatureUnitToggler> {
-  int index = 0;
+  final selectedBoxDecoration = BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(30),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.blue.withOpacity(.15),
+        blurRadius: 5,
+        offset: const Offset(0, 5),
+      )
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
+    final brightness = MediaQuery.of(context).platformBrightness;
+    final selectedStyle = TextStyle(
+      color: brightness == Brightness.dark ? Colors.white : Colors.black,
+    );
+
     return Container(
       height: 50,
       width: 180,
@@ -40,29 +56,21 @@ class _TemperatureUnitTogglerState extends State<TemperatureUnitToggler> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  index = 0;
+                  widget.onTap!(0);
                 });
                 if (widget.onTap == null) return;
-                widget.onTap!(0);
               },
               child: Container(
                 // height: 35,
                 // width: 80,
                 decoration: widget.index == 0
-                    ? BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.blue.withOpacity(.15),
-                            blurRadius: 5,
-                            offset: const Offset(0, 5),
-                          )
-                        ],
-                      )
+                    ? selectedBoxDecoration
                     : const BoxDecoration(),
                 alignment: Alignment.center,
-                child: const Text('°C'),
+                child: Text(
+                  '°C',
+                  style: widget.index == 0 ? selectedStyle : null,
+                ),
               ),
             ),
           ),
@@ -70,27 +78,19 @@ class _TemperatureUnitTogglerState extends State<TemperatureUnitToggler> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  index = 1;
+                  widget.onTap!(1);
                 });
                 if (widget.onTap == null) return;
-                widget.onTap!(1);
               },
               child: Container(
                 alignment: Alignment.center,
                 decoration: widget.index == 1
-                    ? BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.blue.withOpacity(.15),
-                            blurRadius: 5,
-                            offset: const Offset(0, 5),
-                          )
-                        ],
-                      )
+                    ? selectedBoxDecoration
                     : const BoxDecoration(),
-                child: const Text('°F'),
+                child: Text(
+                  '°F',
+                  style: widget.index == 1 ? selectedStyle : null,
+                ),
               ),
             ),
           ),
@@ -98,27 +98,19 @@ class _TemperatureUnitTogglerState extends State<TemperatureUnitToggler> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  index = 2;
+                  widget.onTap!(2);
                 });
                 if (widget.onTap == null) return;
-                widget.onTap!(2);
               },
               child: Container(
                 alignment: Alignment.center,
                 decoration: widget.index == 2
-                    ? BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.blue.withOpacity(.15),
-                            blurRadius: 5,
-                            offset: const Offset(0, 5),
-                          )
-                        ],
-                      )
+                    ? selectedBoxDecoration
                     : const BoxDecoration(),
-                child: const Text('K'),
+                child: Text(
+                  'K',
+                  style: widget.index == 2 ? selectedStyle : null,
+                ),
               ),
             ),
           )
