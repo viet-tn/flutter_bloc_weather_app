@@ -78,6 +78,7 @@ class MainSection extends StatelessWidget {
             fontSize: 26,
             fontWeight: FontWeight.w400,
           ),
+          textAlign: TextAlign.center,
         ),
       ],
     );
